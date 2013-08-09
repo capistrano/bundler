@@ -1,0 +1,41 @@
+namespace :bundler do
+  desc <<-DESC
+        Install the current Bundler environment. By default, gems will be \
+        installed to the shared/bundle path. Gems in the development and \
+        test group will not be installed. The install command is executed \
+        with the --deployment and --quiet flags.
+
+        You can override any of these defaults by setting the variables shown below.
+
+          set :bundle_gemfile, -> { release_path.join('Gemfile') }
+          set :bundle_dir, -> { shared_path.join('bundle') }
+          set :bundle_flags, '--deployment --quiet'
+          set :bundle_without, %w{development test}.join(' ')
+          set :bundle_binstubs, -> { shared_path.join('bin') }
+          set :bundle_roles, :all
+    DESC
+  task :install do
+    on roles fetch(:bundle_roles) do
+      within release_path do
+        execute :bundle, "--gemfile #{fetch(:bundle_gemfile)}",
+          "--path #{fetch(:bundle_dir)}",
+          fetch(:bundle_flags),
+          "--binstubs #{fetch(:bundle_binstubs)}",
+          "--without #{fetch(:bundle_without)}"
+      end
+    end
+  end
+
+  before 'deploy:updated', 'bundler:install'
+end
+
+namespace :load do
+  task :defaults do
+    set :bundle_gemfile, release_path.join('Gemfile')
+    set :bundle_dir, shared_path.join('vendor/bundle')
+    set :bundle_flags, '--deployment'
+    set :bundle_without, %w{development test}.join(' ')
+    set :bundle_binstubs, shared_path.join('bin')
+    set :bundle_roles, :all
+  end
+end

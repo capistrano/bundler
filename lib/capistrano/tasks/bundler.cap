@@ -17,18 +17,16 @@ namespace :bundler do
   task :install do
     on roles fetch(:bundle_roles) do
       within release_path do
-        if :bundle_binstubs
-          execute :bundle, "--gemfile #{fetch(:bundle_gemfile)}",
-            "--path #{fetch(:bundle_dir)}",
-            fetch(:bundle_flags),
-            "--binstubs #{fetch(:bundle_binstubs)}",
-            "--without #{fetch(:bundle_without)}"
-        else
-          execute :bundle, "--gemfile #{fetch(:bundle_gemfile)}",
-            "--path #{fetch(:bundle_dir)}",
-            fetch(:bundle_flags),
-            "--without #{fetch(:bundle_without)}"
-        end
+        options = [
+                    "--gemfile #{fetch(:bundle_gemfile)}",
+                    "--path #{fetch(:bundle_dir)}",
+                    fetch(:bundle_flags),
+                    "--without #{fetch(:bundle_without)}"
+                  ]
+
+        options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
+
+        execute :bundle, options
       end
     end
   end

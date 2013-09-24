@@ -19,12 +19,12 @@ namespace :bundler do
       within release_path do
         options = [
                     "--gemfile #{fetch(:bundle_gemfile)}",
-                    "--path #{fetch(:bundle_dir)}",
                     fetch(:bundle_flags),
                     "--without #{fetch(:bundle_without)}"
                   ]
 
         options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
+        options << "--path #{fetch(:bundle_dir)}" if fetch(:bundle_dir)
 
         execute :bundle, options
       end

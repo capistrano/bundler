@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'capistrano-bundler'
-  spec.version       = '0.0.1'
+  spec.version       = '1.0.0'
   spec.authors       = ['Tom Clements', 'Lee Hambley']
   spec.email         = ['seenmyfate@gmail.com', 'lee.hambley@gmail.com']
   spec.description   = %q{Bundler support for Capistrano 3.x}

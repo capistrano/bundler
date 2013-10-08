@@ -6,8 +6,8 @@ Bundler for support for Capistrano 3.x
 
 Add this line to your application's Gemfile:
 
+    gem 'capistrano', '~> 3.0.0'
     gem 'capistrano-bundler'
-    gem 'capistrano', github: 'capistrano/capistrano', branch: 'v3'
 
 And then execute:
 

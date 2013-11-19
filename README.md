@@ -35,6 +35,14 @@ Configurable options, shown here with defaults:
     set :bundle_binstubs, -> { shared_path.join('bin') }
     set :bundle_roles, :all
 
+By default, this integrations adds `bundle exec` prefix to common executables like `rake`, `ruby` and `rails`.
+
+If you want to use `bundle exec` prefix with other executables, you can do it with setting:
+
+```ruby
+set :bundle_bins, %w(ruby rake rails any_other_executable)
+```
+
 ## Contributing
 
 1. Fork it

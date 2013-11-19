@@ -7,25 +7,35 @@ namespace :bundler do
 
         You can override any of these defaults by setting the variables shown below.
 
-          set :bundle_gemfile, -> { release_path.join('Gemfile') }
-          set :bundle_dir, -> { shared_path.join('bundle') }
-          set :bundle_flags, '--deployment --quiet'
-          set :bundle_without, %w{development test}.join(' ')
-          set :bundle_binstubs, -> { shared_path.join('bin') }
           set :bundle_roles, :all
+
+          set :bundle_binstubs, -> { shared_path.join('bin') }
+          set :bundle_gemfile, -> { release_path.join('Gemfile') }
+          set :bundle_path, -> { shared_path.join('bundle') }
+          set :bundle_without, %w{development test}.join(' ')
+          set :bundle_flags, '--deployment --quiet'
     DESC
   task :install do
     on roles fetch(:bundle_roles) do
       within release_path do
-        execute :bundle, "--gemfile #{fetch(:bundle_gemfile)}",
-          "--path #{fetch(:bundle_dir)}",
-          fetch(:bundle_flags),
-          "--binstubs #{fetch(:bundle_binstubs)}",
-          "--without #{fetch(:bundle_without)}"
+        options = ["install"]
+        options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
+        options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
+        options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
+        options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
+        options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
+
+        execute :bundle, options
       end
     end
   end
 
+  desc <<-DESC
+        Maps all binaries to use `bundle exec` by default.
+        Add your own binaries to the array with the command shown below.
+
+          set :bundle_bins, fetch(:bundle_bins).push %w(my_new_binary)
+    DESC
   task :map_bins do
     fetch(:bundle_bins).each do |command|
       SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
@@ -41,12 +51,12 @@ end
 
 namespace :load do
   task :defaults do
-    set :bundle_gemfile, -> { release_path.join('Gemfile') }
-    set :bundle_dir, -> { shared_path.join('bundle') }
-    set :bundle_flags, '--deployment --quiet'
-    set :bundle_without, %w{development test}.join(' ')
-    set :bundle_binstubs, -> { shared_path.join('bin') }
-    set :bundle_roles, :all
     set :bundle_bins, %w{gem rake rails}
+
+    set :bundle_roles, :all
+    set :bundle_binstubs, -> { shared_path.join('bin') }
+    set :bundle_path, -> { shared_path.join('bundle') }
+    set :bundle_without, %w{development test}.join(' ')
+    set :bundle_flags, '--deployment --quiet'
   end
 end

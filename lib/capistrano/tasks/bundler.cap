@@ -32,8 +32,11 @@ namespace :bundler do
     end
   end
 
-  before 'deploy:starting', 'bundler:map_bins'
   before 'deploy:updated',  'bundler:install'
+end
+
+Capistrano::DSL.stages.each do |stage|
+  after stage, 'bundler:map_bins'
 end
 
 namespace :load do
@@ -44,6 +47,6 @@ namespace :load do
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_binstubs, -> { shared_path.join('bin') }
     set :bundle_roles, :all
-    set :bundle_bins, %w(ruby rake rails)
+    set :bundle_bins, %w{gem rake ruby}
   end
 end

@@ -34,7 +34,7 @@ Configurable options, shown here with defaults:
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_binstubs, -> { shared_path.join('bin') }
     set :bundle_roles, :all
-    set :bundle_bins, %w(gem rake ruby)
+    set :bundle_bins, %w(gem rake rails)
 
 By default, the plugin adds `bundle exec` prefix to common executables listed in `bundle_bins` option. You can add any custom executable to this list:
 

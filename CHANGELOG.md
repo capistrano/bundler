@@ -1,3 +1,8 @@
+# 1.1.1
+
+* ruby is not prefixed with `bundle exec` anymore by default
+* prefix rails with `bundle exec` by default
+
 # 1.1.0
 
 * Switching to new command map (https://github.com/capistrano/sshkit/pull/45)

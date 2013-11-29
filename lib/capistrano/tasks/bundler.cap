@@ -47,6 +47,6 @@ namespace :load do
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_binstubs, -> { shared_path.join('bin') }
     set :bundle_roles, :all
-    set :bundle_bins, %w{gem rake ruby}
+    set :bundle_bins, %w{gem rake rails}
   end
 end

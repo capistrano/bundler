@@ -30,6 +30,7 @@ Configurable options, shown here with defaults:
 
     set :bundle_gemfile, -> { release_path.join('Gemfile') }
     set :bundle_dir, -> { shared_path.join('bundle') }
+    set :bundle_environment_variables, {}
     set :bundle_flags, '--deployment --quiet'
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_binstubs, -> { shared_path.join('bin') }
@@ -40,6 +41,13 @@ By default, the plugin adds `bundle exec` prefix to common executables listed in
 
 ```ruby
 set :bundle_bins, fetch(:bundle_bins).push %w(my_new_binary)
+```
+
+The `bundle_environment_variables` option can be used to specify any environment variables you want present when running the `bundle` command:
+
+```ruby
+# This translates to NOKOGIRI_USE_SYSTEM_LIBRARIES=1 when executed
+set :bundle_environment_variables, { :nokogiri_use_system_libraries => 1 }
 ```
 
 ## Contributing

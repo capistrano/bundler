@@ -9,6 +9,7 @@ namespace :bundler do
 
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
           set :bundle_dir, -> { shared_path.join('bundle') }
+          set :bundle_environment_variables, {}
           set :bundle_flags, '--deployment --quiet'
           set :bundle_without, %w{development test}.join(' ')
           set :bundle_binstubs, -> { shared_path.join('bin') }
@@ -17,11 +18,13 @@ namespace :bundler do
   task :install do
     on roles fetch(:bundle_roles) do
       within release_path do
-        execute :bundle, "--gemfile #{fetch(:bundle_gemfile)}",
-          "--path #{fetch(:bundle_dir)}",
-          fetch(:bundle_flags),
-          "--binstubs #{fetch(:bundle_binstubs)}",
-          "--without #{fetch(:bundle_without)}"
+        with fetch(:bundle_environment_variables) do
+          execute :bundle, "--gemfile #{fetch(:bundle_gemfile)}",
+            "--path #{fetch(:bundle_dir)}",
+            fetch(:bundle_flags),
+            "--binstubs #{fetch(:bundle_binstubs)}",
+            "--without #{fetch(:bundle_without)}"
+        end
       end
     end
   end
@@ -43,6 +46,7 @@ namespace :load do
   task :defaults do
     set :bundle_gemfile, -> { release_path.join('Gemfile') }
     set :bundle_dir, -> { shared_path.join('bundle') }
+    set :bundle_environment_variables, {}
     set :bundle_flags, '--deployment --quiet'
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_binstubs, -> { shared_path.join('bin') }

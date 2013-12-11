@@ -44,6 +44,7 @@ Configurable options:
     set :bundle_path, -> { shared_path.join('bundle') }      # this is default
     set :bundle_without, %w{development test}.join(' ')      # this is default
     set :bundle_flags, '--deployment --quiet'                # this is default
+    set :bundle_env_variables, {}                    # this is default
 
 This would execute the following bundle command on all servers
 (actual paths depend on the real deploy directory):
@@ -56,6 +57,15 @@ This would execute the following bundle command on all servers
       --deployment --quiet
 
 If any option is set to `nil` it will be excluded from the final bundle command.
+
+### Environment Variables
+
+The `bundle_env_variables` option can be used to specify any environment variables you want present when running the `bundle` command:
+
+```ruby
+# This translates to NOKOGIRI_USE_SYSTEM_LIBRARIES=1 when executed
+set :bundle_env_variables, { nokogiri_use_system_libraries: 1 }
+```
 
 ## Contributing
 

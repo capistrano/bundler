@@ -1,12 +1,16 @@
 # Capistrano::Bundler
 
-Bundler for support for Capistrano 3.x
+Bundler specific tasks for Capistrano v3:
+
+   * cap production bundler:install
+
+It also prefixes certain binaries to use `bundle exec`.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'capistrano', '~> 3.0.0'
+    gem 'capistrano', '~> 3.0'
     gem 'capistrano-bundler'
 
 And then execute:
@@ -23,24 +27,35 @@ Require in `Capfile` to use the default task:
 
     require 'capistrano/bundler'
 
-The task will run before `deploy:updated` as part of Capistrano's default deploy,
-or can be run in isolation with `cap production bundler:install`
+The task will run before `deploy:updated` as part of Capistrano's default deploy, or can be run in isolation with `cap production bundler:install`
 
-Configurable options, shown here with defaults:
+By default, the plugin adds `bundle exec` prefix to common executables listed in `bundle_bins` option. This currently applies for `gem`, `rake` and `rails`.
 
-    set :bundle_gemfile, -> { release_path.join('Gemfile') }
-    set :bundle_dir, -> { shared_path.join('bundle') }
-    set :bundle_flags, '--deployment --quiet'
-    set :bundle_without, %w{development test}.join(' ')
-    set :bundle_binstubs, -> { shared_path.join('bin') }
-    set :bundle_roles, :all
-    set :bundle_bins, %w(gem rake rails)
-
-By default, the plugin adds `bundle exec` prefix to common executables listed in `bundle_bins` option. You can add any custom executable to this list:
-
+You can add any custom executable to this list:
 ```ruby
-set :bundle_bins, fetch(:bundle_bins).push %w(my_new_binary)
+set :bundle_bins, fetch(:bundle_bins, []).push %w(my_new_binary)
 ```
+
+Configurable options:
+
+    set :bundle_roles, :all                                  # this is default
+    set :bundle_binstubs, -> { shared_path.join('bin') }     # this is default
+    set :bundle_gemfile, -> { release_path.join('MyGemfile') } # default: nil
+    set :bundle_path, -> { shared_path.join('bundle') }      # this is default
+    set :bundle_without, %w{development test}.join(' ')      # this is default
+    set :bundle_flags, '--deployment --quiet'                # this is default
+
+This would execute the following bundle command on all servers
+(actual paths depend on the real deploy directory):
+
+    bundle install \
+      --binstubs /my_app/shared/bin \
+      --gemfile /my_app/releases/20130623094732/MyGemfile \
+      --path /my_app/shared/bundle \
+      --without development test \
+      --deployment --quiet
+
+If any option is set to `nil` it will be excluded from the final bundle command.
 
 ## Contributing
 

@@ -1,3 +1,10 @@
+# future release
+
+* The `bundle_dir` option is now named `bundle_path`
+* Use `bundle install` instead of `bundle`
+* All options are now optional and can be excluded from the final bundle command by setting them to `nil`
+* Bundler looks for a `Gemfile` by default, so there is no need to specify it.
+
 # 1.1.1
 
 * ruby is not prefixed with `bundle exec` anymore by default

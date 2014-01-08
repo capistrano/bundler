@@ -10,8 +10,8 @@ It also prefixes certain binaries to use `bundle exec`.
 
 Add this line to your application's Gemfile:
 
-    gem 'capistrano', '~> 3.0'
-    gem 'capistrano-bundler'
+    gem 'capistrano',         '~> 3.0', require: false, group: :development
+    gem 'capistrano-bundler', '~> 1.1', require: false, group: :development
 
 And then execute:
 

@@ -16,7 +16,7 @@ namespace :bundler do
           set :bundle_flags, '--deployment --quiet'
     DESC
   task :install do
-    on roles fetch(:bundle_roles) do
+    on roles(*fetch(:bundle_roles)) do
       within release_path do
         options = ["install"]
         options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)

@@ -1,5 +1,6 @@
 # future release
 
+* Added `bundle_env_variables` option for specifying environment variables that should be set when running `bundle`.
 * The `bundle_dir` option is now named `bundle_path`
 * Use `bundle install` instead of `bundle`
 * All options are now optional and can be excluded from the final bundle command by setting them to `nil`

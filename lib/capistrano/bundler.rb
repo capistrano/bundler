@@ -1,1 +1,2 @@
-load File.expand_path('../tasks/bundler.cap', __FILE__)
+require_relative 'bundler/tasks'
+require_relative 'bundler/hooks'

@@ -51,9 +51,6 @@ namespace :bundler do
       SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
     end
   end
-
-  before 'deploy:updated', 'bundler:install'
-  before 'deploy:reverted', 'bundler:install'
 end
 
 Capistrano::DSL.stages.each do |stage|

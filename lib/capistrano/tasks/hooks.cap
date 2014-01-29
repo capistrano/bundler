@@ -1,0 +1,2 @@
+before 'deploy:updated', 'bundler:install'
+before 'deploy:reverted', 'bundler:install'

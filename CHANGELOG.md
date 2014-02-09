@@ -1,3 +1,7 @@
+# future release
+
+* Honor `:no_release` flag by using `release_roles` in Capistrano 3.1
+
 # 1.1.2 (8 Feb 2014)
 
 * Added `bundle_env_variables` option for specifying environment variables that should be set when running `bundle`.

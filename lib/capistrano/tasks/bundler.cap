@@ -5,10 +5,13 @@ namespace :bundler do
         test group will not be installed. The install command is executed \
         with the --deployment and --quiet flags.
 
+        By default, bundler will not be run on servers with no_release: true.
+
         You can override any of these defaults by setting the variables shown below.
 
           set :bundle_roles, :all
 
+          set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
           set :bundle_binstubs, -> { shared_path.join('bin') }
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
           set :bundle_path, -> { shared_path.join('bundle') }
@@ -17,7 +20,7 @@ namespace :bundler do
           set :bundle_env_variables, {}
     DESC
   task :install do
-    on roles fetch(:bundle_roles) do
+    on fetch(:bundle_servers) do
       within release_path do
         with fetch(:bundle_env_variables, {}) do
           options = ["install"]
@@ -57,6 +60,7 @@ namespace :load do
     set :bundle_bins, %w{gem rake rails}
 
     set :bundle_roles, :all
+    set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
     set :bundle_binstubs, -> { shared_path.join('bin') }
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(' ')

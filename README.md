@@ -8,7 +8,7 @@ It also prefixes certain binaries to use `bundle exec`.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add these lines to your application's Gemfile:
 
     gem 'capistrano', '~> 3.1'
     gem 'capistrano-bundler', '~> 1.1.2'
@@ -39,6 +39,7 @@ set :bundle_bins, fetch(:bundle_bins, []).push %w(my_new_binary)
 Configurable options:
 
     set :bundle_roles, :all                                  # this is default
+    set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
     set :bundle_binstubs, -> { shared_path.join('bin') }     # this is default
     set :bundle_gemfile, -> { release_path.join('MyGemfile') } # default: nil
     set :bundle_path, -> { shared_path.join('bundle') }      # this is default

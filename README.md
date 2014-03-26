@@ -47,6 +47,11 @@ Configurable options:
     set :bundle_flags, '--deployment --quiet'                # this is default
     set :bundle_env_variables, {}                    # this is default
 
+You can parallelize the installation of gems with bundler's jobs feature.
+Choose a number less or equal than the number of cores your server.
+
+    set :bundle_jobs, 4 #This is only available for bundler 1.4+
+
 This would execute the following bundle command on all servers
 (actual paths depend on the real deploy directory):
 

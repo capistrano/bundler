@@ -2,6 +2,7 @@
 
 * Honor `:no_release` flag by using `release_roles` in Capistrano 3.1
 * capistrano-bundler now requires Capistrano 3.1 or higher (~> 3.1)
+* Added `:bundle_jobs` option for specifying number of parallel jobs
 
 # 1.1.2 (8 Feb 2014)
 

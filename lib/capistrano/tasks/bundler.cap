@@ -66,6 +66,6 @@ namespace :load do
     set :bundle_binstubs, -> { shared_path.join('bin') }
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(' ')
-    set :bundle_flags, '--deployment --quiet'
+    set :bundle_flags, '--deployment --quiet --clean'
   end
 end

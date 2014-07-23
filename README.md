@@ -70,12 +70,12 @@ This would execute the following bundle command on all servers
 (actual paths depend on the real deploy directory):
 
 ```sh
-    bundle install \
-      --binstubs /my_app/shared/bin \
-      --gemfile /my_app/releases/20130623094732/MyGemfile \
-      --path /my_app/shared/bundle \
-      --without development test \
-      --deployment --quiet
+$ bundle install \
+  --binstubs /my_app/shared/bin \
+  --gemfile /my_app/releases/20130623094732/MyGemfile \
+  --path /my_app/shared/bundle \
+  --without development test \
+  --deployment --quiet
 ```
 
 If any option is set to `nil` it will be excluded from the final bundle command.

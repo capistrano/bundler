@@ -1,4 +1,4 @@
-# future release
+# 1.1.3 (4 Aug 2014)
 
 * Honor `:no_release` flag by using `release_roles` in Capistrano 3.1
 * capistrano-bundler now requires Capistrano 3.1 or higher (~> 3.1)

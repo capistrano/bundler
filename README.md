@@ -11,7 +11,7 @@ It also prefixes certain binaries to use `bundle exec`.
 Add these lines to your application's Gemfile:
 
     gem 'capistrano', '~> 3.1'
-    gem 'capistrano-bundler', '~> 1.1.2'
+    gem 'capistrano-bundler', '~> 1.1.3'
 
 And then execute:
 

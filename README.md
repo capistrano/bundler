@@ -43,7 +43,7 @@ By default, the plugin adds `bundle exec` prefix to common executables listed in
 
 You can add any custom executable to this list:
 ```ruby
-set :bundle_bins, fetch(:bundle_bins, []).push 'my_new_binary'
+set :bundle_bins, fetch(:bundle_bins, []).push('my_new_binary')
 ```
 
 Configurable options:

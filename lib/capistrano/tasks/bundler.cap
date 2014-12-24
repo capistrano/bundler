@@ -42,7 +42,7 @@ namespace :bundler do
         Maps all binaries to use `bundle exec` by default.
         Add your own binaries to the array with the command shown below.
 
-          set :bundle_bins, fetch(:bundle_bins).push %w(my_new_binary)
+          set :bundle_bins, fetch(:bundle_bins) + %w(my_new_binary)
     DESC
   task :map_bins do
     fetch(:bundle_bins).each do |command|

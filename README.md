@@ -51,7 +51,7 @@ Configurable options:
 ```ruby
 set :bundle_roles, :all                                         # this is default
 set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
-set :bundle_binstubs, -> { shared_path.join('bin') }            # this is default
+set :bundle_binstubs, -> { shared_path.join('bin') }            # default: nil
 set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
 set :bundle_path, -> { shared_path.join('bundle') }             # this is default
 set :bundle_without, %w{development test}.join(' ')             # this is default
@@ -66,7 +66,13 @@ Choose a number less or equal than the number of cores your server.
 set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
 ```
 
-This would execute the following bundle command on all servers
+To generate binstubs on each deploy, set `:bundle_binstubs` path:
+
+```ruby
+set :bundle_binstubs, -> { shared_path.join('bin') }
+```
+
+In the result this would execute the following bundle command on all servers
 (actual paths depend on the real deploy directory):
 
 ```sh

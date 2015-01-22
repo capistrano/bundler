@@ -1,3 +1,7 @@
+# 1.1.4 (22 Jan 2014)
+
+* Don’t generate binstubs by default (#61)
+
 # 1.1.3 (4 Aug 2014)
 
 * Honor `:no_release` flag by using `release_roles` in Capistrano 3.1

@@ -6,7 +6,7 @@
       old bundle path `shared/bundle/` which is now unused. The new default is
       `shared/vendor/bundle/`.
 
-# 1.1.4 (22 Jan 2014)
+# 1.1.4 (22 Jan 2015)
 
 * Don’t generate binstubs by default (#61)
 

@@ -47,7 +47,7 @@ namespace :bundler do
     DESC
   task :map_bins do
     fetch(:bundle_bins).each do |command|
-      SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
+      SSHKit.config.command_map.prefix[command.to_sym].push("#{fetch(:bundle_cmd)} exec")
     end
   end
 

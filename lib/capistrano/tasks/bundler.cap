@@ -11,6 +11,7 @@ namespace :bundler do
 
           set :bundle_roles, :all
 
+          set :bundle_cmd, 'bundle'
           set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
           set :bundle_binstubs, -> { shared_path.join('bin') }
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
@@ -32,7 +33,7 @@ namespace :bundler do
           options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
           options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
 
-          execute :bundle, options
+          execute fetch(:bundle_cmd), options
         end
       end
     end
@@ -46,7 +47,7 @@ namespace :bundler do
     DESC
   task :map_bins do
     fetch(:bundle_bins).each do |command|
-      SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
+      SSHKit.config.command_map.prefix[command.to_sym].push("#{fetch(:bundle_cmd)} exec")
     end
   end
 
@@ -61,6 +62,7 @@ namespace :load do
   task :defaults do
     set :bundle_bins, %w{gem rake rails}
 
+    set :bundle_cmd, 'bundle'
     set :bundle_roles, :all
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
     set :bundle_path, nil

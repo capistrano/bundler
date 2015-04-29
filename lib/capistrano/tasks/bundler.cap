@@ -19,6 +19,7 @@ namespace :bundler do
           set :bundle_flags, '--deployment --quiet'
           set :bundle_jobs, nil
           set :bundle_env_variables, {}
+          set :bundle_clean_options, ""
     DESC
   task :install do
     on fetch(:bundle_servers) do
@@ -49,6 +50,23 @@ namespace :bundler do
   task :map_bins do
     fetch(:bundle_bins).each do |command|
       SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
+    end
+  end
+
+  desc "Remove unused gems intalled by bundler"
+  task :clean do
+    on fetch(:bundle_servers) do
+      within release_path do
+        with fetch(:bundle_env_variables, {}) do
+          deleted_gems = capture(:bundle, :clean, fetch(:bundle_clean_options, ""))
+          if "" == deleted_gems
+            info "All installed gems are in Gemfile.lock"
+          else
+            deleted_gems = deleted_gems.split("\n").collect(&:strip).collect{ |line| line.gsub(/^Removing /, "") }.sort.join(", ")
+            info "Deleting bundled gems: #{deleted_gems}"
+          end
+        end
+      end
     end
   end
 end

@@ -1,5 +1,6 @@
 (master)
 
+* Added a `bundle clean` task.  There are no default hooks for it.
 * Use `bundle check` to check if we can skip `bundle install`
 * Run `bundle:install` on rollback (`deploy:reverted`)
 

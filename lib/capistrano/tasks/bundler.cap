@@ -63,7 +63,7 @@ namespace :load do
 
     set :bundle_roles, :all
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
-    set :bundle_path, nil
+    set :bundle_path, -> { shared_path.join('vendor/bundle') }
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_flags, '--deployment --quiet'
 

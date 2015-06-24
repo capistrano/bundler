@@ -14,7 +14,7 @@ namespace :bundler do
           set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
           set :bundle_binstubs, -> { shared_path.join('bin') }
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
-          set :bundle_path, -> { shared_path.join('my_special_bundle') }
+          set :bundle_path, -> { shared_path.join('bundle') }
           set :bundle_without, %w{development test}.join(' ')
           set :bundle_flags, '--deployment --quiet'
           set :bundle_jobs, nil
@@ -65,10 +65,10 @@ namespace :load do
 
     set :bundle_roles, :all
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
-    set :bundle_path, nil
+    set :bundle_path, -> { shared_path.join('vendor/bundle') }
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_flags, '--deployment --quiet'
 
-    set :linked_dirs, fetch(:linked_dirs, []) + %w(vendor/bundle .bundle)
+    set :linked_dirs, fetch(:linked_dirs, []) << '.bundle'
   end
 end

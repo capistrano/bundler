@@ -53,7 +53,7 @@ set :bundle_roles, :all                                         # this is defaul
 set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
 set :bundle_binstubs, -> { shared_path.join('bin') }            # default: nil
 set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
-set :bundle_path, -> { shared_path.join('my_special_bundle') }  # default: nil
+set :bundle_path, -> { shared_path.join('bundle') }             # this is default
 set :bundle_without, %w{development test}.join(' ')             # this is default
 set :bundle_flags, '--deployment --quiet'                       # this is default
 set :bundle_env_variables, {}                                   # this is default
@@ -71,11 +71,6 @@ To generate binstubs on each deploy, set `:bundle_binstubs` path:
 ```ruby
 set :bundle_binstubs, -> { shared_path.join('bin') }
 ```
-
-Bundler uses `vendor/bundle/` as path for gems if called with `--deployment`.
-Therefore this gem adds that path to `linked_dirs`. See the [Bundler
-documentation](http://bundler.io/v1.7/man/bundle-install.1.html#DEPLOYMENT-MODE)
-for details.
 
 In the result this would execute the following bundle command on all servers
 (actual paths depend on the real deploy directory):

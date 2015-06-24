@@ -69,6 +69,6 @@ namespace :load do
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_flags, '--deployment --quiet'
 
-    set :linked_dirs, fetch(:linked_dirs, []) << 'vendor/bundle' << '.bundle'
+    set :linked_dirs, fetch(:linked_dirs, []) + %w(vendor/bundle .bundle)
   end
 end

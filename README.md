@@ -8,6 +8,8 @@ $ cap production bundler:install
 
 It also prefixes certain binaries to use `bundle exec`.
 
+It also looks for changes in Gemfile and Gemfile.lock and skip if there is no change. (#54 @sahin)
+
 ## Installation
 
 Add these lines to your application's Gemfile:

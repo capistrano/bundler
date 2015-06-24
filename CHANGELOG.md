@@ -1,5 +1,6 @@
 (master)
 
+* Use `bundle check` to check if we can skip `bundle install`
 * Add `vendor/bundle/` to `linked_dirs`.
 * Set default for `bundle_path` to `nil`, which means Bundler chooses `vendor/bundle/`.
     * If you did not change the default `bundle_path` make sure to cleanup the

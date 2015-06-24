@@ -24,15 +24,17 @@ namespace :bundler do
     on fetch(:bundle_servers) do
       within release_path do
         with fetch(:bundle_env_variables, {}) do
-          options = ["install"]
+          options = []
           options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
           options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
           options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
-          options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
           options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
-          options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
 
-          execute :bundle, options
+          unless test(:bundle, :check, *options)
+            options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
+            options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
+            execute :bundle, :install, *options
+          end
         end
       end
     end
@@ -67,6 +69,6 @@ namespace :load do
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_flags, '--deployment --quiet'
 
-    set :linked_dirs, fetch(:linked_dirs, []).push('vendor/bundle')
+    set :linked_dirs, fetch(:linked_dirs, []) + %w(vendor/bundle .bundle)
   end
 end

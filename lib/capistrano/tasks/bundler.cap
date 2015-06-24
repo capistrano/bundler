@@ -53,6 +53,7 @@ namespace :bundler do
   end
 
   before 'deploy:updated', 'bundler:install'
+  before 'deploy:reverted', 'bundler:install'
 end
 
 Capistrano::DSL.stages.each do |stage|

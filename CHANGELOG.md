@@ -3,7 +3,7 @@
 * Use `bundle check` to check if we can skip `bundle install`
 * Run `bundle:install` on rollback (`deploy:reverted`)
 
-# 1.1.4 (22 Jan 2014)
+# 1.1.4 (22 Jan 2015)
 
 * Don’t generate binstubs by default (#61)
 

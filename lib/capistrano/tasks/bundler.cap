@@ -21,7 +21,7 @@ namespace :bundler do
           set :bundle_env_variables, {}
     DESC
   task :install do
-    on fetch(:bundle_servers) do
+    on fetch(:bundle_servers) do |host|
       within release_path do
         with fetch(:bundle_env_variables, {}) do
           options = []
@@ -31,7 +31,10 @@ namespace :bundler do
           options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
 
           unless test(:bundle, :check, *options)
-            options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
+            if bundle_without = fetch(:bundle_without) # Intentional assignment operator
+              bundle_without = bundle_without.call(host) if bundle_without.respond_to?(:call)
+              options << "--without #{bundle_without}"
+            end
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
           end
@@ -63,8 +66,8 @@ namespace :load do
 
     set :bundle_roles, :all
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
-    set :bundle_path, -> { shared_path.join('vendor/bundle') }
-    set :bundle_without, %w{development test}.join(' ')
+    set :bundle_path, -> { shared_path.join('bundle') }
+    set :bundle_without, ->{ ->(host){ "#{"assets" if (host.roles_array & fetch(:assets_roles, [])).empty?} development test" } }
     set :bundle_flags, '--deployment --quiet'
 
     set :linked_dirs, fetch(:linked_dirs, []) << '.bundle'

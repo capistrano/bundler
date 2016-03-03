@@ -50,6 +50,22 @@ namespace :bundler do
       SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
     end
   end
+
+  desc <<-DESC
+        Performs a `bundle clean` in order to remove unused gems from
+        your :bundle_path.
+    DESC
+  task :clean do
+    on fetch(:bundle_servers) do
+      within release_path do
+        with fetch(:bundle_env_variables, {}) do
+          options = []
+          options << "#{fetch(:bundle_flags)}" unless fetch(:bundle_flags) == '--deployment --quiet'
+          execute :bundle, :clean, *options
+        end
+      end
+    end
+  end
 end
 
 Capistrano::DSL.stages.each do |stage|

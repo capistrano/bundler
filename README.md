@@ -53,7 +53,7 @@ set :bundle_roles, :all                                         # this is defaul
 set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
 set :bundle_binstubs, -> { shared_path.join('bin') }            # default: nil
 set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
-set :bundle_path, -> { shared_path.join('bundle') }             # this is default
+set :bundle_path, -> { shared_path.join('bundle') }             # this is default. set it to nil for skipping the --path flag.
 set :bundle_without, %w{development test}.join(' ')             # this is default
 set :bundle_flags, '--deployment --quiet'                       # this is default
 set :bundle_env_variables, {}                                   # this is default

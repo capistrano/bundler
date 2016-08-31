@@ -21,17 +21,25 @@ namespace :bundler do
           set :bundle_env_variables, {}
     DESC
   task :install do
-    on fetch(:bundle_servers) do
+    def bundle_fetch(name, host)
+      if (result = fetch(name)).is_a?(Proc)
+        result.call(host)
+      else
+        result
+      end
+    end
+
+    on fetch(:bundle_servers) do |host|
       within release_path do
         with fetch(:bundle_env_variables, {}) do
           options = []
-          options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
-          options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
+          options << "--gemfile #{bundle_fetch(:bundle_gemfile, host)}" if fetch(:bundle_gemfile)
+          options << "--path #{bundle_fetch(:bundle_path, host)}" if fetch(:bundle_path)
           unless test(:bundle, :check, *options)
-            options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
-            options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
-            options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
-            options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
+            options << "--binstubs #{bundle_fetch(:bundle_binstubs, host)}" if fetch(:bundle_binstubs)
+            options << "--jobs #{bundle_fetch(:bundle_jobs, host)}" if fetch(:bundle_jobs)
+            options << "--without #{bundle_fetch(:bundle_without, host)}" if fetch(:bundle_without)
+            options << "#{bundle_fetch(:bundle_flags, host)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
           end
         end

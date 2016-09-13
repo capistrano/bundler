@@ -22,7 +22,7 @@ namespace :bundler do
     DESC
   task :install do
     on fetch(:bundle_servers) do
-      within release_path do
+      within fetch(:bundle_exec_path, release_path) do
         with fetch(:bundle_env_variables, {}) do
           options = []
           options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)

@@ -87,6 +87,13 @@ $ bundle install \
 
 If any option is set to `nil` it will be excluded from the final bundle command.
 
+If you want to clean up gems after a successful deploy, add `after 'deploy:published', 'bundler:clean'` to config/deploy.rb.
+
+Downsides to cleaning:
+
+* If a rollback requires rebuilding a Gem with a large compiled binary component, such as Nokogiri, the rollback will take a while.
+* In rare cases, if a gem that was used in the previously deployed version was yanked, rollback would entirely fail.
+
 ### Environment Variables
 
 The `bundle_env_variables` option can be used to specify any environment variables you want present when running the `bundle` command:

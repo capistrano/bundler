@@ -1,8 +1,13 @@
-(master)
+# [Unreleased][] (master)
+
+* Your contribution here!
+
+# [1.2.0][] (30 Sep 2016)
 
 * Added a `bundle clean` task.  There are no default hooks for it.
 * Use `bundle check` to check if we can skip `bundle install`
 * Run `bundle:install` on rollback (`deploy:reverted`)
+* You can now `require "capistrano/bundler/tasks"` to load the tasks only without the hooks
 
 # 1.1.4 (22 Jan 2015)
 
@@ -35,3 +40,6 @@
 # 1.0.0
 
 Initial release
+
+[Unreleased]: https://github.com/capistrano/bundler/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/capistrano/bundler/compare/v1.1.4...v1.2.0

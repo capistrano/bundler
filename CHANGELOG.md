@@ -1,4 +1,8 @@
-(master)
+# [Unreleased][] (master)
+
+* Your contribution here!
+
+# [1.2.0][] (1 Oct 2016)
 
 * Added a `bundle clean` task.  There are no default hooks for it.
 * Use `bundle check` to check if we can skip `bundle install`
@@ -36,3 +40,6 @@
 # 1.0.0
 
 Initial release
+
+[Unreleased]: https://github.com/capistrano/bundler/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/capistrano/bundler/compare/v1.1.4...v1.2.0

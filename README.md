@@ -13,8 +13,8 @@ It also prefixes certain binaries to use `bundle exec`.
 Add these lines to your application's Gemfile:
 
 ```ruby
-gem 'capistrano', '~> 3.1'
-gem 'capistrano-bundler', '~> 1.1.2'
+gem 'capistrano', '~> 3.6'
+gem 'capistrano-bundler', '~> 1.2'
 ```
 
 And then execute:

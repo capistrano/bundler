@@ -77,7 +77,5 @@ namespace :load do
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_flags, '--deployment --quiet'
-
-    set :linked_dirs, fetch(:linked_dirs, []) << '.bundle'
   end
 end

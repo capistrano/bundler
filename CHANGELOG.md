@@ -4,7 +4,13 @@
 
 # [1.2.0][] (1 Oct 2016)
 
-* Added a `bundle clean` task.  There are no default hooks for it.
+Breaking changes
+
+* None
+
+Added
+
+* A `bundle clean` task.  There are no default hooks for it.
 * Use `bundle check` to check if we can skip `bundle install`
 * Run `bundle:install` on rollback (`deploy:reverted`)
 * You can now `require "capistrano/bundler/tasks"` to load the tasks only without the hooks

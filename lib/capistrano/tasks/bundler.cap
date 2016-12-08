@@ -76,6 +76,6 @@ namespace :load do
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(' ')
-    set :bundle_flags, '--deployment --quiet'
+    set :bundle_flags, '--deployment --quiet --clean'
   end
 end

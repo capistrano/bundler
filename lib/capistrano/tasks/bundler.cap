@@ -52,7 +52,7 @@ namespace :bundler do
     end
   end
 
-  desc "Remove unused gems intalled by bundler"
+  desc "Remove unused gems installed by bundler"
   task :clean do
     on fetch(:bundle_servers) do
       within release_path do

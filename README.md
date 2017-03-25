@@ -10,7 +10,7 @@ It also prefixes certain binaries to use `bundle exec`.
 
 ## Installation
 
-Add these lines to your application's Gemfile:
+Add these lines to your application's Gemfile **[Recommended]**:
 
 ```ruby
 gem 'capistrano', '~> 3.6'

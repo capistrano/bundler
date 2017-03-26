@@ -1,6 +1,6 @@
 # [Unreleased][] (master)
 
-* Your contribution here!
+* Add hanami to `bundle_bins`
 
 # [1.2.0][] (1 Oct 2016)
 

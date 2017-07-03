@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+* Add `bundle_task_ssh_kit_options` option to configure SSHKit options
 
 # [1.2.0][] (1 Oct 2016)
 

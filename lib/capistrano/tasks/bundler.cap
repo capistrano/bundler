@@ -22,7 +22,7 @@ namespace :bundler do
           set :bundle_clean_options, ""
     DESC
   task :install do
-    on fetch(:bundle_servers) do
+    on fetch(:bundle_servers), fetch(:bundle_task_ssh_kit_options, {}) do
       within release_path do
         with fetch(:bundle_env_variables, {}) do
           options = []
@@ -54,7 +54,7 @@ namespace :bundler do
 
   desc "Remove unused gems installed by bundler"
   task :clean do
-    on fetch(:bundle_servers) do
+    on fetch(:bundle_servers), fetch(:bundle_task_ssh_kit_options, {}) do
       within release_path do
         with fetch(:bundle_env_variables, {}) do
           execute :bundle, :clean, fetch(:bundle_clean_options, "")

@@ -14,7 +14,7 @@ Add these lines to your application's Gemfile **[Recommended]**:
 
 ```ruby
 gem 'capistrano', '~> 3.6'
-gem 'capistrano-bundler', '~> 1.2'
+gem 'capistrano-bundler', '~> 1.3'
 ```
 
 And then execute:

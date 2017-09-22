@@ -1,6 +1,15 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+
+# [1.3.0][] (22 Sep 2017)
+
+Breaking changes
+
+* None
+
+Added
+
 * Set all variables in `load:defaults` task so they are recognised as valid Capistrano settings when using `doctor:variables` and ensure defaults for `bundle_env_variables` and `bundle_clean_options` are set once in the same place as the other defaults.
 
 # [1.2.0][] (1 Oct 2016)
@@ -48,5 +57,6 @@ Added
 
 Initial release
 
-[Unreleased]: https://github.com/capistrano/bundler/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/capistrano/bundler/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/capistrano/bundler/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/capistrano/bundler/compare/v1.1.4...v1.2.0

@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+* [#99](https://github.com/capistrano/bundler/pull/99): Speed up `bundle install` when gems did not change - [@vassilevsky](https://github.com/vassilevsky)
 
 # [1.3.0][] (22 Sep 2017)
 

@@ -33,7 +33,8 @@ namespace :bundler do
             options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
             options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
-            execute :bundle, :install, *options
+            fast_options = options + ['--local']
+            test :bundle, :install, *fast_options or execute :bundle, :install, *options
           end
         end
       end

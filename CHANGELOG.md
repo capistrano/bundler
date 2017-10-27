@@ -1,5 +1,8 @@
 # [Unreleased][] (master)
 
+Added
+
+* Auto-add `.bundle` directory to Capistrano's `:linked_dirs` configuration variable, making the directory persistent across releases. In particular, this fixes `bundle check` operation, which speeds up consequent deployments.
 * Your contribution here!
 
 # [1.3.0][] (22 Sep 2017)

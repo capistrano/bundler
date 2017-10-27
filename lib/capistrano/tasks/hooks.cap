@@ -1,2 +1,3 @@
+after 'bundler:map_bins', 'bundler:set_linked_dirs'
 before 'deploy:updated', 'bundler:install'
 before 'deploy:reverted', 'bundler:install'

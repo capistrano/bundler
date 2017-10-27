@@ -62,6 +62,14 @@ namespace :bundler do
       end
     end
   end
+
+  desc "Make the .bundle directory persistent across deploys (for faster bundling)"
+  task :set_linked_dirs do
+    linked_dirs = fetch :linked_dirs, []
+    unless linked_dirs.include?('.bundle')
+      set :linked_dirs, linked_dirs + ['.bundle']
+    end
+  end
 end
 
 Capistrano::DSL.stages.each do |stage|

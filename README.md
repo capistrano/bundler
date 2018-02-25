@@ -42,7 +42,7 @@ The task will run before `deploy:updated` as part of Capistrano's default deploy
 In order for Bundler to work efficiently on the server, its project configuration directory (`<release_path>/.bundle/`) should be persistent across releases.
 You need to add it to the `linked_dirs` Capistrano variable:
 
-Capisrano **3.5**+:
+Capistrano **3.5**+:
 
 ```ruby
 # config/deploy.rb

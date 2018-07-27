@@ -34,6 +34,8 @@ namespace :bundler do
             options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
+          else
+            output.log("The Gemfile's dependencies are satisfied, skipping installation")
           end
         end
       end

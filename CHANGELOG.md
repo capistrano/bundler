@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+* Explicitly reporting that the installation command is not required
 
 # [1.3.0][] (22 Sep 2017)
 

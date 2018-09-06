@@ -1,6 +1,6 @@
 # [Unreleased][] (master)
 
-* Your contribution here!
+* Added `bundle_check_before_install` option to allow bypassing the `bundle install test` in the `bundler:install` task.
 
 # [1.3.0][] (22 Sep 2017)
 

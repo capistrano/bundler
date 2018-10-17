@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+* Set `bundle_jobs` default to `4` @Tensho
 * When "bundle install" is skipped due to a Gemfile's dependencies are being satisfied, print a message to the log instead of silently skipping
 
 # [1.3.0][] (22 Sep 2017)

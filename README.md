@@ -86,7 +86,7 @@ You can parallelize the installation of gems with bundler's jobs feature.
 Choose a number less or equal than the number of cores your server.
 
 ```ruby
-set :bundle_jobs, 4 # default: nil, only available for Bundler >= 1.4
+set :bundle_jobs, 8 # default: 4, only available for Bundler >= 1.4
 ```
 
 To generate binstubs on each deploy, set `:bundle_binstubs` path:

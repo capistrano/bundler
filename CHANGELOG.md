@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+* Set `bundle_jobs` default to `4` @Tensho
 
 # [1.4.0][] (21 Oct 2018)
 

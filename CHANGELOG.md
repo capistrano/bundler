@@ -1,7 +1,16 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+
+# [1.5.0][] (23 Dec 2018)
+
+Changes to default behavior
+
 * Set `bundle_jobs` default to `4` @Tensho
+
+Breaking changes
+
+* None
 
 # [1.4.0][] (21 Oct 2018)
 
@@ -68,7 +77,8 @@ Added
 
 Initial release
 
-[Unreleased]: https://github.com/capistrano/bundler/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/capistrano/bundler/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/capistrano/bundler/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/capistrano/bundler/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/capistrano/bundler/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/capistrano/bundler/compare/v1.1.4...v1.2.0

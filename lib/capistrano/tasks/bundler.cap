@@ -15,6 +15,7 @@ namespace :bundler do
           set :bundle_binstubs, -> { shared_path.join('bin') }
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
           set :bundle_path, -> { shared_path.join('bundle') }
+          set :bundle_with, nil
           set :bundle_without, %w{development test}.join(' ')
           set :bundle_flags, '--deployment --quiet'
           set :bundle_jobs, nil
@@ -33,6 +34,7 @@ namespace :bundler do
           else
             options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
             options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
+            options << "--with #{fetch(:bundle_with)}" if fetch(:bundle_with)
             options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
@@ -79,6 +81,7 @@ namespace :load do
     set :bundle_binstubs, nil
     set :bundle_gemfile, nil
     set :bundle_path, -> { shared_path.join('bundle') }
+    set :bundle_with, nil
     set :bundle_without, %w{development test}.join(' ')
     set :bundle_flags, '--deployment --quiet'
     set :bundle_jobs, 4

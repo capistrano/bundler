@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Added `bundle_check_before_install` option to allow bypassing the `bundle install test` in the `bundler:install` task.
+* Your contribution here!
 
 # [1.5.0][] (23 Dec 2018)
 

@@ -80,6 +80,7 @@ set :bundle_without, %w{development test}.join(' ')             # this is defaul
 set :bundle_flags, '--deployment --quiet'                       # this is default
 set :bundle_env_variables, {}                                   # this is default
 set :bundle_clean_options, ""                                   # this is default. Use "--dry-run" if you just want to know what gems would be deleted, without actually deleting them
+set :bundle_check_before_install, true                          # default: true. Set this to false to bypass running `bundle check` before executing `bundle install`
 ```
 
 You can parallelize the installation of gems with bundler's jobs feature.

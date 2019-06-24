@@ -28,7 +28,8 @@ namespace :bundler do
           options = []
           options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
           options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
-          if test(:bundle, :check, *options)
+
+          if fetch(:bundle_check_before_install) && test(:bundle, :check, *options)
             info "The Gemfile's dependencies are satisfied, skipping installation"
           else
             options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
@@ -84,5 +85,6 @@ namespace :load do
     set :bundle_jobs, 4
     set :bundle_env_variables, {}
     set :bundle_clean_options, ""
+    set :bundle_check_before_install, true
   end
 end

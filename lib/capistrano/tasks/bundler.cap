@@ -29,7 +29,7 @@ namespace :bundler do
           options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
           options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
 
-          unless fetch(:bundle_check_before_install) && test(:bundle, :check, *options)
+          if fetch(:bundle_check_before_install) && test(:bundle, :check, *options)
             info "The Gemfile's dependencies are satisfied, skipping installation"
           else
             options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)

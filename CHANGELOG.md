@@ -3,6 +3,10 @@
 * Added `bundle_check_before_install` option to allow bypassing the `bundle install test` in the `bundler:install` task.
 * Your contribution here!
 
+# [1.5.1][] (08 May 2019)
+
+* Added support for optional gem groups by allowing `:bundle_with, %w{optional_groupA optional_groupB}.join(' ')` to be set so that bundler will execute as: `bundle install --with optional_groupA optional_groupB`
+
 # [1.5.0][] (23 Dec 2018)
 
 Changes to default behavior

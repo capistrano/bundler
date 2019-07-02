@@ -1,7 +1,10 @@
 # [Unreleased][] (master)
 
-* Added `bundle_check_before_install` option to allow bypassing the `bundle install test` in the `bundler:install` task.
 * Your contribution here!
+
+# [1.6.0][] (2 Jul 2019)
+
+* Added `bundle_check_before_install` option to allow bypassing the `bundle install test` in the `bundler:install` task.
 
 # [1.5.0][] (23 Dec 2018)
 
@@ -78,7 +81,8 @@ Added
 
 Initial release
 
-[Unreleased]: https://github.com/capistrano/bundler/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/capistrano/bundler/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/capistrano/bundler/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/capistrano/bundler/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/capistrano/bundler/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/capistrano/bundler/compare/v1.2.0...v1.3.0

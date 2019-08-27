@@ -5,12 +5,15 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name          = 'capistrano-bundler'
   spec.version       = '1.6.0'
+  spec.license       = 'MIT'
   spec.authors       = ['Tom Clements', 'Lee Hambley', 'Kir Shatrov']
   spec.email         = ['seenmyfate@gmail.com', 'lee.hambley@gmail.com', 'shatrov@me.com']
   spec.description   = %q{Bundler support for Capistrano 3.x}
   spec.summary       = %q{Bundler support for Capistrano 3.x}
   spec.homepage      = 'https://github.com/capistrano/bundler'
-  spec.license       = 'MIT'
+  spec.metadata      = {
+    "changelog_uri" => "https://github.com/capistrano/bundler/blob/master/CHANGELOG.md"
+  }
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }

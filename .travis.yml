@@ -1,6 +1,9 @@
-sudo: false
+---
 language: ruby
+cache: bundler
+branches:
+  only:
+    - master
 rvm:
-  - 2.3.3
-before_install: gem install bundler -v '~> 1.14' --conservative
-before_script: bundle exec danger
+  - 2.7.1
+script: bundle exec danger

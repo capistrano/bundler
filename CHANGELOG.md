@@ -1,6 +1,6 @@
 # [Unreleased][] (master)
 
-* Switch to using environment variables for deprecated parameters.
+* Switch to using environment variables for [parameters deprecated in preparation for Bundler 3](https://github.com/rubygems/bundler/blob/d4993be66fa2e76b3ca00ea56a51ecab5478b726/UPGRADING.md#bundler-3). This means that if you were overriding `:bundle_env_variables` or depending on `:bundle_without` to remove `--deployment`, you will need to approach those differently.
 * Your contribution here!
 
 # [1.6.0][] (2 Jul 2019)

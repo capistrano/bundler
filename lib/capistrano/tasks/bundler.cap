@@ -27,14 +27,12 @@ namespace :bundler do
         with fetch(:bundle_env_variables) do
           options = []
           options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
-          options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
 
           if fetch(:bundle_check_before_install) && test(:bundle, :check, *options)
             info "The Gemfile's dependencies are satisfied, skipping installation"
           else
             options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
             options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
-            options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
           end
@@ -81,9 +79,18 @@ namespace :load do
     set :bundle_gemfile, nil
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(' ')
-    set :bundle_flags, '--deployment --quiet'
+    set :bundle_flags, '--quiet'
     set :bundle_jobs, 4
-    set :bundle_env_variables, {}
+
+    bundle_default_config = { 'BUNDLE_DEPLOYMENT' => true }
+    if fetch(:bundle_path)
+      bundle_default_config['BUNDLE_PATH'] = fetch(:bundle_path)
+    end
+    if fetch(:bundle_without)
+      bundle_default_config['BUNDLE_WITHOUT'] = fetch(:bundle_without)
+    end
+
+    set :bundle_env_variables, bundle_default_config
     set :bundle_clean_options, ""
     set :bundle_check_before_install, true
   end

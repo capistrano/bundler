@@ -1,5 +1,6 @@
 # [Unreleased][] (master)
 
+* Switch to using environment variables for deprecated parameters.
 * Your contribution here!
 
 # [1.6.0][] (2 Jul 2019)

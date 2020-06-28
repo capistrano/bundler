@@ -16,7 +16,7 @@ namespace :bundler do
     on fetch(:bundle_servers) do
       within release_path do
         with fetch(:bundle_env_variables) do
-          configuration = fetch(:bundle_config).dup
+          configuration = fetch(:bundle_config).dup || {}
           configuration[:gemfile] = fetch(:bundle_gemfile)
           configuration[:path] = fetch(:bundle_path)
           configuration[:without] = fetch(:bundle_without)

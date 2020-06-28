@@ -1,6 +1,7 @@
 # [Unreleased][] (master)
 
 * Your contribution here!
+* Support Bundler 2.1 and above by removing deprecated `--path`, `--without`, and `--deployment` options.
 
 # [1.6.0][] (2 Jul 2019)
 

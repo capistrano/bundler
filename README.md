@@ -72,12 +72,13 @@ Configurable options:
 
 ```ruby
 set :bundle_roles, :all                                         # this is default
+set :bundle_config, { deployment: true }                        # this is default
 set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
 set :bundle_binstubs, -> { shared_path.join('bin') }            # default: nil
 set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
-set :bundle_path, -> { shared_path.join('bundle') }             # this is default. set it to nil for skipping the --path flag.
+set :bundle_path, -> { shared_path.join('bundle') }             # this is default. set it to nil to use bundler's default path
 set :bundle_without, %w{development test}.join(' ')             # this is default
-set :bundle_flags, '--deployment --quiet'                       # this is default
+set :bundle_flags, '--quiet'                                    # this is default
 set :bundle_env_variables, {}                                   # this is default
 set :bundle_clean_options, ""                                   # this is default. Use "--dry-run" if you just want to know what gems would be deleted, without actually deleting them
 set :bundle_check_before_install, true                          # default: true. Set this to false to bypass running `bundle check` before executing `bundle install`
@@ -96,19 +97,18 @@ To generate binstubs on each deploy, set `:bundle_binstubs` path:
 set :bundle_binstubs, -> { shared_path.join('bin') }
 ```
 
-In the result this would execute the following bundle command on all servers
+In the result this would execute the following bundle commands on all servers
 (actual paths depend on the real deploy directory):
 
 ```sh
-$ bundle install \
-  --binstubs /my_app/shared/bin \
-  --gemfile /my_app/releases/20130623094732/MyGemfile \
-  --path /my_app/shared/bundle \
-  --without development test \
-  --deployment --quiet
+$ bundle config --local deployment true
+$ bundle config --local gemfile /my_app/releases/20130623094732/MyGemfile
+$ bundle config --local path /my_app/shared/bundle
+$ bundle config --local without "development test"
+$ bundle install --quiet --binstubs /my_app/shared/bin
 ```
 
-If any option is set to `nil` it will be excluded from the final bundle command.
+If any option is set to `nil` it will be excluded from the final bundle commands.
 
 If you want to clean up gems after a successful deploy, add `after 'deploy:published', 'bundler:clean'` to config/deploy.rb.
 

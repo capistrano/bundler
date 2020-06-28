@@ -1,9 +1,39 @@
+require "shellwords"
+
 namespace :bundler do
   desc <<-DESC
-        Install the current Bundler environment. By default, gems will be \
-        installed to the shared/bundle path. Gems in the development and \
-        test group will not be installed. The install command is executed \
-        with the --deployment and --quiet flags.
+        Configure the Bundler environment for the release so that subequent
+        `bundle check`, `bundle install`, `bundle clean`, and `bundle exec`
+        commands all behave consistently. The following settings will be
+        turned into the appropriate `bundle config` executions:
+
+        :bundle_config
+        :bundle_gemfile
+        :bundle_path
+        :bundle_without
+    DESC
+  task :config do
+    on fetch(:bundle_servers) do
+      within release_path do
+        with fetch(:bundle_env_variables) do
+          configuration = fetch(:bundle_config).dup
+          configuration[:gemfile] = fetch(:bundle_gemfile)
+          configuration[:path] = fetch(:bundle_path)
+          configuration[:without] = fetch(:bundle_without)
+
+          configuration.each do |key, value|
+            execute :bundle, "config", "--local", key, value.to_s.shellescape unless value.nil?
+          end
+        end
+      end
+    end
+  end
+
+  desc <<-DESC
+        Install the current Bundler environment. By default, gems will be
+        installed to the shared/bundle path. Gems in the development and
+        test group will not be installed. The install command is executed
+        with the --quiet and --jobs=4 flags.
 
         By default, bundler will not be run on servers with no_release: true.
 
@@ -11,30 +41,27 @@ namespace :bundler do
 
           set :bundle_roles, :all
 
+          set :bundle_config, { deployment: true }
           set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
-          set :bundle_binstubs, -> { shared_path.join('bin') }
+          set :bundle_binstubs, nil
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
           set :bundle_path, -> { shared_path.join('bundle') }
           set :bundle_without, %w{development test}.join(' ')
-          set :bundle_flags, '--deployment --quiet'
-          set :bundle_jobs, nil
+          set :bundle_flags, '--quiet'
+          set :bundle_jobs, 4
           set :bundle_env_variables, {}
           set :bundle_clean_options, ""
     DESC
-  task :install do
+  task install: :config do
     on fetch(:bundle_servers) do
       within release_path do
         with fetch(:bundle_env_variables) do
-          options = []
-          options << "--gemfile #{fetch(:bundle_gemfile)}" if fetch(:bundle_gemfile)
-          options << "--path #{fetch(:bundle_path)}" if fetch(:bundle_path)
-
-          if fetch(:bundle_check_before_install) && test(:bundle, :check, *options)
+          if fetch(:bundle_check_before_install) && test(:bundle, :check)
             info "The Gemfile's dependencies are satisfied, skipping installation"
           else
+            options = []
             options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
             options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
-            options << "--without #{fetch(:bundle_without)}" if fetch(:bundle_without)
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
           end
@@ -56,7 +83,7 @@ namespace :bundler do
   end
 
   desc "Remove unused gems installed by bundler"
-  task :clean do
+  task clean: :config do
     on fetch(:bundle_servers) do
       within release_path do
         with fetch(:bundle_env_variables) do
@@ -76,12 +103,14 @@ namespace :load do
     set :bundle_bins, %w{gem rake rails}
 
     set :bundle_roles, :all
+
+    set :bundle_config, { deployment: true }
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
     set :bundle_binstubs, nil
     set :bundle_gemfile, nil
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(' ')
-    set :bundle_flags, '--deployment --quiet'
+    set :bundle_flags, '--quiet'
     set :bundle_jobs, 4
     set :bundle_env_variables, {}
     set :bundle_clean_options, ""

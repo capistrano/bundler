@@ -77,7 +77,7 @@ set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is defaul
 set :bundle_binstubs, -> { shared_path.join('bin') }            # default: nil
 set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
 set :bundle_path, -> { shared_path.join('bundle') }             # this is default. set it to nil to use bundler's default path
-set :bundle_without, %w{development test}.join(' ')             # this is default
+set :bundle_without, %w{development test}.join(':')             # this is default
 set :bundle_flags, '--quiet'                                    # this is default
 set :bundle_env_variables, {}                                   # this is default
 set :bundle_clean_options, ""                                   # this is default. Use "--dry-run" if you just want to know what gems would be deleted, without actually deleting them

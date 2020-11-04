@@ -46,7 +46,7 @@ namespace :bundler do
           set :bundle_binstubs, nil
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
           set :bundle_path, -> { shared_path.join('bundle') }
-          set :bundle_without, %w{development test}.join(' ')
+          set :bundle_without, %w{development test}.join(':')
           set :bundle_flags, '--quiet'
           set :bundle_jobs, 4
           set :bundle_env_variables, {}

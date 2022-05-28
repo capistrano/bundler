@@ -44,6 +44,7 @@ namespace :bundler do
           set :bundle_config, { deployment: true }
           set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
           set :bundle_binstubs, nil
+          set :bundle_binstubs_command, :install
           set :bundle_gemfile, -> { release_path.join('Gemfile') }
           set :bundle_path, -> { shared_path.join('bundle') }
           set :bundle_without, %w{development test}.join(':')
@@ -60,10 +61,17 @@ namespace :bundler do
             info "The Gemfile's dependencies are satisfied, skipping installation"
           else
             options = []
-            options << "--binstubs #{fetch(:bundle_binstubs)}" if fetch(:bundle_binstubs)
+            if fetch(:bundle_binstubs) &&
+               fetch(:bundle_binstubs_command) == :install
+              options << "--binstubs #{fetch(:bundle_binstubs)}"
+            end
             options << "--jobs #{fetch(:bundle_jobs)}" if fetch(:bundle_jobs)
             options << "#{fetch(:bundle_flags)}" if fetch(:bundle_flags)
             execute :bundle, :install, *options
+            if fetch(:bundle_binstubs) &&
+               fetch(:bundle_binstubs_command) == :binstubs
+              execute :bundle, :binstubs, '--all', '--path', fetch(:bundle_binstubs)
+            end
           end
         end
       end
@@ -107,6 +115,7 @@ namespace :load do
     set :bundle_config, { deployment: true }
     set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) }
     set :bundle_binstubs, nil
+    set :bundle_binstubs_command, :install
     set :bundle_gemfile, nil
     set :bundle_path, -> { shared_path.join('bundle') }
     set :bundle_without, %w{development test}.join(':')

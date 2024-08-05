@@ -2,7 +2,7 @@ require "shellwords"
 
 namespace :bundler do
   desc <<-DESC
-        Configure the Bundler environment for the release so that subequent
+        Configure the Bundler environment for the release so that subsequent
         `bundle check`, `bundle install`, `bundle clean`, and `bundle exec`
         commands all behave consistently. The following settings will be
         turned into the appropriate `bundle config` executions:

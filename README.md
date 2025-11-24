@@ -83,6 +83,14 @@ set :bundle_flags, '--quiet'                                    # this is defaul
 set :bundle_env_variables, {}                                   # this is default
 set :bundle_clean_options, ""                                   # this is default. Use "--dry-run" if you just want to know what gems would be deleted, without actually deleting them
 set :bundle_check_before_install, true                          # default: true. Set this to false to bypass running `bundle check` before executing `bundle install`
+set :bundle_version, 2                                          # default: 2. Set to 4 for Bundler 4 compatibility
+```
+
+If you are using Bundler 4 (which is the default in Ruby 4),
+make sure to set `:bundle_version` to avoid deprecation warnings:
+
+```ruby
+set :bundle_version, 4
 ```
 
 You can parallelize the installation of gems with bundler's jobs feature.

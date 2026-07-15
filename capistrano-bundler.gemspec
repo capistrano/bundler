@@ -12,7 +12,8 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Bundler support for Capistrano 3.x}
   spec.homepage      = 'https://github.com/capistrano/bundler'
   spec.metadata      = {
-    "changelog_uri" => "https://github.com/capistrano/bundler/releases"
+    "changelog_uri" => "https://github.com/capistrano/bundler/releases",
+    "rubygems_mfa_required" => "true"
   }
 
   spec.files         = `git ls-files`.split($/)

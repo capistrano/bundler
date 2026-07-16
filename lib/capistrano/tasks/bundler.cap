@@ -16,7 +16,7 @@ namespace :bundler do
     on fetch(:bundle_servers) do
       within release_path do
         with fetch(:bundle_env_variables) do
-          config_args = fetch(:bundle_version, 2) >= 4 ? %w[config set] : %w[config]
+          config_args = fetch(:bundle_version, 4) >= 4 ? %w[config set] : %w[config]
 
           configuration = fetch(:bundle_config).dup || {}
           configuration[:gemfile] = fetch(:bundle_gemfile)
@@ -55,7 +55,7 @@ namespace :bundler do
           set :bundle_env_variables, {}
           set :bundle_clean_options, ""
           set :bundle_check_before_install, true
-          set :bundle_version, 2
+          set :bundle_version, 4
     DESC
   task install: :config do
     on fetch(:bundle_servers) do
@@ -128,6 +128,6 @@ namespace :load do
     set :bundle_env_variables, {}
     set :bundle_clean_options, ""
     set :bundle_check_before_install, true
-    set :bundle_version, 2
+    set :bundle_version, 4
   end
 end

@@ -14,7 +14,7 @@ Add these lines to your application's Gemfile **[Recommended]**:
 
 ```ruby
 gem 'capistrano', '~> 3.6'
-gem 'capistrano-bundler', '~> 2.0'
+gem 'capistrano-bundler', '~> 3.0'
 ```
 
 And then execute:
@@ -83,14 +83,14 @@ set :bundle_flags, '--quiet'                                    # this is defaul
 set :bundle_env_variables, {}                                   # this is default
 set :bundle_clean_options, ""                                   # this is default. Use "--dry-run" if you just want to know what gems would be deleted, without actually deleting them
 set :bundle_check_before_install, true                          # default: true. Set this to false to bypass running `bundle check` before executing `bundle install`
-set :bundle_version, 2                                          # default: 2. Set to 4 for Bundler 4 compatibility
+set :bundle_version, 4                                          # default: 4. Set to 2 for Bundler 2 compatibility
 ```
 
-If you are using Bundler 4 (which is the default in Ruby 4),
-make sure to set `:bundle_version` to avoid deprecation warnings:
+Bundler 4 is the default in Ruby 4. If your deploy target still uses Bundler 2,
+set `:bundle_version` explicitly:
 
 ```ruby
-set :bundle_version, 4
+set :bundle_version, 2
 ```
 
 You can parallelize the installation of gems with bundler's jobs feature.

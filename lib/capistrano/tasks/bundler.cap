@@ -90,7 +90,8 @@ namespace :bundler do
     DESC
   task :map_bins do
     fetch(:bundle_bins).each do |command|
-      SSHKit.config.command_map.prefix[command.to_sym].push("bundle exec")
+      prefix = SSHKit.config.command_map.prefix[command.to_sym]
+      prefix.push("bundle exec") unless prefix.include?("bundle exec")
     end
   end
 

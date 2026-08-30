@@ -74,8 +74,6 @@ Configurable options:
 set :bundle_roles, :all                                         # this is default
 set :bundle_config, { deployment: true }                        # this is default
 set :bundle_servers, -> { release_roles(fetch(:bundle_roles)) } # this is default
-set :bundle_binstubs, -> { shared_path.join('bin') }            # default: nil
-set :bundle_binstubs_command, :install                          # this is default
 set :bundle_gemfile, -> { release_path.join('MyGemfile') }      # default: nil
 set :bundle_path, -> { shared_path.join('bundle') }             # this is default. set it to nil to use bundler's default path
 set :bundle_without, %w{development test}.join(':')             # this is default
@@ -100,21 +98,26 @@ Choose a number less or equal than the number of cores your server.
 set :bundle_jobs, 8 # default: 4, only available for Bundler >= 1.4
 ```
 
-To generate binstubs on each deploy, set `:bundle_binstubs` path:
+Generate the binstubs your application needs locally and commit them to the
+application repository:
 
-```ruby
-set :bundle_binstubs, -> { shared_path.join('bin') }
+```sh
+$ bundle binstubs rake rails
 ```
 
-In the result this would execute the following bundle commands on all servers
-(actual paths depend on the real deploy directory):
+Binstubs generated into a shared directory during deployment can retain the
+path of a release that Capistrano later removes. Checked-in binstubs instead
+keep the same relative path to the application's `Gemfile` in every release.
+
+A deploy using the options above would execute commands like these on all
+servers (actual paths depend on the real deploy directory):
 
 ```sh
 $ bundle config --local deployment true
 $ bundle config --local gemfile /my_app/releases/20130623094732/MyGemfile
 $ bundle config --local path /my_app/shared/bundle
 $ bundle config --local without "development test"
-$ bundle install --quiet --binstubs /my_app/shared/bin
+$ bundle install --quiet
 ```
 
 If any option is set to `nil` it will be excluded from the final bundle commands.
@@ -125,14 +128,6 @@ Downsides to cleaning:
 
 * If a rollback requires rebuilding a Gem with a large compiled binary component, such as Nokogiri, the rollback will take a while.
 * In rare cases, if a gem that was used in the previously deployed version was yanked, rollback would entirely fail.
-
-If you're using Bundler >= 2.1 and you are generating binstubs, you can configure capistrano-bundler to use the newer
-`bundle binstubs` command. This will avoid the deprecation warning that you'd otherwise get when using `bundle install`
-to generate binstubs:
-
-```ruby
-set :bundle_binstubs_command, :binstubs
-```
 
 ### Environment Variables
 
